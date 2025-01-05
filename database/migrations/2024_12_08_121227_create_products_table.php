@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('quantity');
             $table->integer('weight')->nullable();
+            $table->string('image_url')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
             $table->timestamps();

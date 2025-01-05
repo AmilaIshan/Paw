@@ -12,6 +12,11 @@ class Category extends Model
 
     protected $fillable = [
         'category_name',
+        'image_url',
+    ];
+
+    protected $casts = [
+        'image_url' => 'array'
     ];
 
     public function products(){

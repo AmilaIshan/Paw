@@ -17,7 +17,12 @@ class Product extends Model
         'quantity',
         'weight',
         'category_id',
-        'admin_id'
+        'admin_id',
+        'image_url',
+    ];
+
+    protected $casts = [
+        'image_url' => 'array'
     ];
 
     public function admin(){
