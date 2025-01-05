@@ -6,6 +6,7 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::paginate(3);
+        $category = Category::paginate(5);
         return CategoryResource::collection($category);
     }
 
@@ -38,6 +39,13 @@ class CategoryController extends Controller
     {
         $cart = Cart::findOrFail($id);
         return new CategoryResource($cart);
+    }
+
+    public function display($categoryId){
+        
+        $category = Category::findOrFail($categoryId);
+        $items = Product::where('category_id', $categoryId)->get();
+        return view('categories.index', compact('category', 'items'));
     }
 
     /**

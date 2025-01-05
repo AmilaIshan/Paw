@@ -61,10 +61,17 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        $product = Product::findOrFail($id);
-        return new ProductResource($product);
+        return view('products.show', compact('product'));
+    }
+
+    public function display($categoryId){
+        $category = Category::findOrFail($categoryId);
+
+        $products = Product::where('category_id', $categoryId)->get();
+
+        return view('products.index', compact('category', 'products'));
     }
 
     /**
