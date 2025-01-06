@@ -2,20 +2,44 @@
 
 namespace App\Livewire;
 
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-use function Laravel\Prompts\alert;
-
 class AddToCartButton extends Component
 {
-    public function checkAuth(){
-        if(Auth::check()){
+    public $productId;
+    
+    public function mount($productId)
+    {
+        $this->productId = $productId;
+    }
+    
+    public function checkAuth()
+    {
+        if (!Auth::check()) {
             return $this->redirect(route('home'));
-        }else{
-            return $this->redirect(route('dashboard'));
         }
-       
+
+        try {
+            $product = Product::findOrFail($this->productId);
+            
+            // Create cart entry directly instead of making HTTP request
+            $cart = Cart::create([
+                'product_id' => $this->productId,
+                'user_id' => Auth::id(),
+                'price' => $product->price,
+                'quantity' => 1,
+            ]);
+
+            if ($cart) {
+                session()->flash('message', 'Product added to cart successfully!');
+                $this->dispatch('cart-updated'); // Optional: Dispatch event to update cart counter if needed
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'Failed to add product to cart: ' . $e->getMessage());
+        }
     }
 
     public function render()

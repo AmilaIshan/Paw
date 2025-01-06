@@ -9,7 +9,7 @@
         <div class="mr-12 ">
             <ul class="hidden md:flex font-bold space-x-6 dark:text-yellow-500  text-2xl capitalize cursor-pointer">
                <a href="{{ route('home') }}"><li >Home</li></a>
-                <li >Products</li>
+               <a href="{{ route('cart') }}"> <li>Cart</li></a>
                 <li>Subscription</li>
                 <li>About Us</li>
             </ul>

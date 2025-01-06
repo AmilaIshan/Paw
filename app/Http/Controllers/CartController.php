@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Product;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -53,6 +53,22 @@ class CartController extends Controller
     {
         $cart = Cart::findOrFail($id);
         return new CartResource($cart);
+    }
+
+    public function cartPage()
+    {
+        
+        // Get authenticated user's cart items with product details
+        $cartItems = Cart::with('product')
+                        ->where('user_id', Auth::id())
+                        ->get();
+        
+        // Calculate total cost
+        $totalCost = $cartItems->sum(function($item) {
+            return $item->price * $item->quantity;
+        });
+
+        return view('cart.index', compact('cartItems', 'totalCost'));
     }
 
     /**

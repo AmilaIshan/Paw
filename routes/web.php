@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('user_layout.home');
+})->name('home');
 
 Route::middleware([
     'auth:sanctum',
@@ -18,8 +19,12 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/home', function() {
-    return view('user_layout.home');
-})->name('home');
+// Route::get('/home', function() {
+//     return view('user_layout.home');
+// })->name('home');
+
 Route::get('/categories/{category}', [CategoryController::class, 'display'])->name('categorized');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+
+Route::get('/cart', [CartController::class, 'cartPage'])->name('cart');
