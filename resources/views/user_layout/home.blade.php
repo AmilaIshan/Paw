@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Paws</title>
+    @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col min-h-screen bg-gray-100 dark:bg-zinc-700">
+<body class="flex font-primary flex-col min-h-screen bg-gray-100 dark:bg-zinc-700">
     @include('user_components.header')
     <main class="flex-grow relative">
         <div class="relative h-[80vh] w-full">
             <img  
-                src="https://t3.ftcdn.net/jpg/06/96/91/04/360_F_696910475_p7XUMWNKjVpsn9ok9wJtTpTEgMBB4zjC.jpg" 
+                src="{{ asset('images/banner.png') }}" 
                 class="w-full h-full object-cover"
                 alt="">
             
@@ -25,21 +25,6 @@
             <h1 class="dark:text-white m-10 text-2xl">Categories</h1>
             
         </div>
-        {{-- <div class="flex justify-center items-center space-x-20">
-            <div>
-                <div class="h-[150px] w-[150px] rounded-full m-2 bg-white"></div>
-                <p class="text-center">This Category 1</p>
-            </div>
-            <div>
-                <div class="h-[150px] w-[150px] rounded-full m-2 bg-white"></div>
-                <p class="text-center">This Category 2</p>
-            </div>
-            <div>
-                <div class="h-[150px] w-[150px] rounded-full m-2 bg-white"></div>
-                <p class="text-center">This Category 3</p>
-            </div>
-            
-        </div> --}}
         <livewire:category />
         <livewire:recommended-products/>
     </main>

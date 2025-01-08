@@ -31,7 +31,9 @@
                             @foreach ($cartItems as $item)
                             <div class="max-w-[1200px] h-[150px] bg-white rounded-lg shadow-lg p-6 m-10">
                                 <div class="flex justify-between items-center">
-                                    <div class="w-32 h-32 bg-green-300"></div>
+                                    <div class="w-32 h-32">
+                                        <img src="{{ asset('storage/' . $item->product->image_url[0] ) }}" alt="">
+                                    </div>
                                     <div class="w-[400px]">
                                         <p>{{ $item->product->product_name }}</p>
                                     </div>
@@ -39,9 +41,6 @@
                                         <p>Rs. {{ $item->price }}</p>
                                     </div>
                                     <div class="flex">
-                                        {{-- <button class="p-2" type="button">-</button>
-                                        <p class="p-2">1</p>
-                                        <button class="p-2"  type="button">+</button> --}}
                                         @livewire('cart-quantity', ['item' => $item])
                                     </div>
                                     <div>

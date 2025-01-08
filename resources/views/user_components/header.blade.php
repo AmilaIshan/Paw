@@ -1,4 +1,4 @@
-<header class="flex bg-white dark:bg-zinc-800 items-center justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+<header class="flex bg-white dark:bg-zinc-800 items-center justify-between py-3 border-b border-gray-200 dark:border-gray-800 font-primary">
     <div class="ml-10 flex">
         <a href="{{ route('home') }}">
             <p class="text-2xl font-bold ml-11 dark:text-white">Paws</p>
@@ -7,7 +7,7 @@
     </div>
     <div class="flex mr-10">
         <div class="mr-12 ">
-            <ul class="hidden md:flex font-bold space-x-6 dark:text-yellow-500  text-2xl capitalize cursor-pointer">
+            <ul class="hidden md:flex space-x-14 dark:text-yellow-500  text-xl capitalize cursor-pointer">
                <a href="{{ route('home') }}"><li >Home</li></a>
                <a href="{{ route('cart') }}"> <li>Cart</li></a>
                 <li>Subscription</li>
@@ -56,6 +56,10 @@
 
                     <x-dropdown-link href="{{ route('profile.show') }}">
                         {{ __('Profile') }}
+                    </x-dropdown-link>
+
+                    <x-dropdown-link href="{{ route('cart') }}">
+                        {{ __('Cart') }}
                     </x-dropdown-link>
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

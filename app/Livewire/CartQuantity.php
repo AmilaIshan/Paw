@@ -10,6 +10,7 @@ class CartQuantity extends Component
     public $item;
     public $quanitty;
     public $maxQuantity;
+    public $totalPrice;
 
     public function mount($item)
     {
@@ -24,6 +25,8 @@ class CartQuantity extends Component
         if($this->quanitty < $this->maxQuantity) {
             $this->quanitty++;
             $this->item->update(['quantity' => $this->quanitty]);
+            $this->updatedCost();
+            $this->dispatch('cartUpdated');
         }
         // $this->quanitty++;
         // $this->item->update(['quantity' => $this->quanitty]);
@@ -34,7 +37,14 @@ class CartQuantity extends Component
         if ($this->quanitty > 1) {
             $this->quanitty--;
             $this->item->update(['quantity' => $this->quanitty]);
+            $this->updatedCost();
+            $this->dispatch('cartUpdated');
         }
+    }
+
+    public function updatedCost(){
+        
+        $this->totalPrice = $this->quanitty * $this->item->price;
     }
 
 
