@@ -29,10 +29,10 @@
 
                         <div class="flex flex-col justify-between h-full">
                             @foreach ($cartItems as $item)
-                            <div class="max-w-[1200px] h-[150px] bg-white rounded-lg shadow-lg p-6 m-10">
+                            <div class="max-w-[1200px] h-[180px] bg-white rounded-lg shadow-lg p-6 m-10">
                                 <div class="flex justify-between items-center">
-                                    <div class="w-32 h-32">
-                                        <img src="{{ asset('storage/' . $item->product->image_url[0] ) }}" alt="">
+                                    <div class="m-4">
+                                        <img class="w-full h-32 m-4 object-contain" src="{{ asset('storage/' . $item->product->image_url[0] ) }}" alt="">
                                     </div>
                                     <div class="w-[400px]">
                                         <p>{{ $item->product->product_name }}</p>
@@ -44,26 +44,14 @@
                                         @livewire('cart-quantity', ['item' => $item])
                                     </div>
                                     <div>
-                                        <button type="button" class="bg-red-400 p-2 rounded-md">Remove Item</button>
+                                        {{-- <button type="button" class="bg-red-400 p-2 rounded-md">Remove Item</button> --}}
+                                        @livewire('remove-cart-item', ['productId' => $item->product->id])
                                     </div>
                                 </div>
                             </div>
                             @endforeach
                             
-                            {{-- <div class="max-w-[1200px] h-[150px] bg-white rounded-lg  p-6 m-10 mt-auto">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <p class="text-2xl">Total Cost</p>
-                                    </div>
-                                    <div>
-                                        <p>{{ $totalCost }}</p>
-                                    </div>
-                                </div>
-                                <div class="flex mt-12">
-                                    <button class="ml-auto bg-yellow-400 py-2 px-4 w-48 rounded-md">Check Out</button>
-                                </div>
-                                
-                            </div> --}}
+                            {{-- Cart Cost section --}}
                             @livewire('cart-cost')
                         </div>
                 </div>

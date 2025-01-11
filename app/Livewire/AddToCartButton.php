@@ -10,10 +10,13 @@ use Livewire\Component;
 class AddToCartButton extends Component
 {
     public $productId;
+    public $isInCart = false;
     
     public function mount($productId)
     {
         $this->productId = $productId;
+        $this->checkIfInCart();
+
     }
     
     public function checkAuth()
@@ -41,6 +44,16 @@ class AddToCartButton extends Component
             session()->flash('error', 'Failed to add product to cart: ' . $e->getMessage());
         }
     }
+
+    public function checkIfInCart()
+    {
+        if (Auth::check()) {
+            $this->isInCart = Cart::where('user_id', Auth::id())
+                                 ->where('product_id', $this->productId)
+                                 ->exists();
+        }
+    }
+
 
     public function render()
     {

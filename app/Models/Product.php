@@ -44,4 +44,9 @@ class Product extends Model
     public function cart(){
         return $this->hasMany(Cart::class);
     }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
 }

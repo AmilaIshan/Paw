@@ -2,7 +2,7 @@
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0 rounded-full">
-            <a href="https://flowbite.com/" class="flex items-center">
+            <a href="{{ route('home') }}" class="flex items-center">
                 <img src="https://cdn.dribbble.com/users/1572563/screenshots/15324193/media/819233a4c521f1f187c97a5ed1af9c8c.jpg?resize=400x0" class="h-8 w-8 me-3 rounded-full" alt="FlowBite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Paws</span>
             </a>
