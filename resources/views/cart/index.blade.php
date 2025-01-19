@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class=" mx-auto max-w-[1200px] min-h-[600px] bg-white rounded-lg shadow-lg p-6 m-10">
+    {{-- <div class=" mx-auto max-w-[1200px] min-h-[600px] bg-white rounded-lg shadow-lg p-6 m-10">
         @guest
             <div class="flex items-center justify-center">
         
@@ -38,25 +38,56 @@
                                         <p>{{ $item->product->product_name }}</p>
                                     </div>
                                     <div>
-                                        <p>Rs. {{ $item->price }}</p>
+                                        <p>Rs. {{ $item->price }}</p>  
                                     </div>
                                     <div class="flex">
                                         @livewire('cart-quantity', ['item' => $item])
                                     </div>
                                     <div>
                                         {{-- <button type="button" class="bg-red-400 p-2 rounded-md">Remove Item</button> --}}
-                                        @livewire('remove-cart-item', ['productId' => $item->product->id])
+                                        {{-- @livewire('remove-cart-item', ['cartId' => $item->id], key('remove-' . $item->id . '-' . $loop->index)) --}}
+                                        {{-- @livewire('remove-cart-item', ['cartId' => $item->id], key($item->id))
                                     </div>
                                 </div>
                             </div>
                             @endforeach
-                            
+                             --}}
                             {{-- Cart Cost section --}}
-                            @livewire('cart-cost')
+                            {{-- @livewire('cart-cost')
                         </div>
                 </div>
             
             </div>
-        @endauth
-    </div>
+        @endauth --}}
+    {{-- </div> -- --}}
+
+    @guest
+            <div class="flex items-center justify-center">
+        
+                <div class="flex flex-col justify-center items-center">
+                    <div class="text-2xl m-4">
+                        <h2>Login or Register to view the cart</h2>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a class=" space-x-2 p-2 w-48 text-center  bg-yellow-300 px-6 rounded-sm hover:text-orange-700 text-sm text-gray-500"
+                        href="http://127.0.0.1:8000/login">
+                        Login
+                        </a>
+                        <a class="space-x-2 w-48 p-2 text-center bg-yellow-300 px-6 rounded-sm hover:text-orange-700 text-sm text-gray-500"
+                            href="http://127.0.0.1:8000/register">
+                            Register
+                        </a>
+                    </div>
+
+                </div>
+                        
+                    
+            </div>
+    @endguest
+
+    @auth
+        @livewire('cart-page');
+    @endauth
+
+   
 </x-app-layout>

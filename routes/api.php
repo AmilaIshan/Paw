@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,3 +21,10 @@ Route::apiResource('cart', CartController::class);
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('transaction', TransactionController::class);
 Route::apiResource('user', UserController::class);
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('/logout', [AuthController::class, 'logout']);
+});

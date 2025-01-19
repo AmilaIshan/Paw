@@ -26,5 +26,7 @@ Route::middleware([
 Route::get('/categories/{category}', [CategoryController::class, 'display'])->name('categorized');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
-
+Route::get('/aboutUs', function() {
+    return view('user_layout.aboutUs');
+})->name('aboutUs');
 Route::get('/cart', [CartController::class, 'cartPage'])->name('cart');

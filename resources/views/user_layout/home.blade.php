@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Paws</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite('resources/css/app.css')
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="flex font-primary flex-col min-h-screen bg-gray-100 dark:bg-zinc-700">
     @include('user_components.header')
@@ -89,5 +92,6 @@
 
     </main>
     @include('user_components.footer')
+    @livewireScripts
 </body>
 </html>

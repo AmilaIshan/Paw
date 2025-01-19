@@ -7,6 +7,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
+use function PHPSTORM_META\type;
+
 class AddToCartButton extends Component
 {
     public $productId;
@@ -21,28 +23,39 @@ class AddToCartButton extends Component
     
     public function checkAuth()
     {
+        
         if (!Auth::check()) {
-            return $this->redirect(route('home'));
-        }
+           $this->dispatch('guest',
+                type: "error",
+                message : "You need to login to add product to cart"
+            );
+        }else{
 
-        try {
-            $product = Product::findOrFail($this->productId);
-            
-            // Create cart entry directly instead of making HTTP request
-            $cart = Cart::create([
-                'product_id' => $this->productId,
-                'user_id' => Auth::id(),
-                'price' => $product->price,
-                'quantity' => 1,
-            ]);
-
-            if ($cart) {
-                session()->flash('message', 'Product added to cart successfully!');
-                $this->dispatch('cart-updated'); // Optional: Dispatch event to update cart counter if needed
+            $this->dispatch('add-to-cart',
+                title: 'success',
+                message: 'Product added to cart successfully!'
+            );
+            try {
+                $product = Product::findOrFail($this->productId);
+                
+                // Create cart entry directly instead of making HTTP request
+                $cart = Cart::create([
+                    'product_id' => $this->productId,
+                    'user_id' => Auth::id(),
+                    'price' => $product->price,
+                    'quantity' => 1,
+                ]);
+    
+                if ($cart) {
+                    session()->flash('message', 'Product added to cart successfully!');
+                    $this->dispatch('cart-updated'); // Optional: Dispatch event to update cart counter if needed
+                }
+            } catch (\Exception $e) {
+                session()->flash('error', 'Failed to add product to cart: ' . $e->getMessage());
             }
-        } catch (\Exception $e) {
-            session()->flash('error', 'Failed to add product to cart: ' . $e->getMessage());
         }
+
+      
     }
 
     public function checkIfInCart()

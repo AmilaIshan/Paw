@@ -32,7 +32,7 @@ class CartController extends Controller
         ]);
 
         $product = Product::findOrFail($validated['product_id']);
-        
+
         $cart = Cart::create([
             'product_id' => $validated['product_id'],
             'user_id' => $validated['user_id'],
@@ -43,7 +43,6 @@ class CartController extends Controller
         $cart->save();
 
         return new CartResource($cart);
-
     }
 
     /**
@@ -57,14 +56,14 @@ class CartController extends Controller
 
     public function cartPage()
     {
-        
+
         // Get authenticated user's cart items with product details
         $cartItems = Cart::with('product')
-                        ->where('user_id', Auth::id())
-                        ->get();
-        
+            ->where('user_id', Auth::id())
+            ->get();
+
         // Calculate total cost
-        $totalCost = $cartItems->sum(function($item) {
+        $totalCost = $cartItems->sum(function ($item) {
             return $item->price * $item->quantity;
         });
 
@@ -85,15 +84,14 @@ class CartController extends Controller
 
         $cart = Cart::findOrFail($id);
         $cart->update($validated);
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $cartId)
     {
-        $cart = Cart::findOrFail($id);
-        $cart->delete();
+        Cart::where('id', $cartId)->delete();
+        return response()->json(['message' => 'Product removed from cart']);
     }
 }

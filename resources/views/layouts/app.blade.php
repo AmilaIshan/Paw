@@ -14,6 +14,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- Styles -->
         @livewireStyles
     </head>
@@ -38,6 +40,29 @@
         @stack('modals')
 
         @livewireScripts
+        <script>
+            window.addEventListener('removeFromcart', (event) => {
+                let data = event.detail;
+                let itemId = data.itemId;
+                console.log(data);
+                Swal.fire({
+                    icon: data.title,
+                    iconColor: '#ff2424',
+                    title: data.message,
+                    showCancelButton: true,
+                    confirmButtonText: "Remove",
+                    confirmButtonColor: '#ff3636',
+                    cancelButtonColor: '#28e506',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //Livewire.dispatch('remove-from-cart');
+                        //Livewire.emit('remove-from-cart', { itemId: data.itemId });
+                        Livewire.dispatch('remove-from-cart', { itemId: data.itemId });
+                    }
+                });
+            });
+        </script>
         
     </body>
+    
 </html>

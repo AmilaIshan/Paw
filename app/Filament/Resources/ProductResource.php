@@ -35,13 +35,19 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 TextInput::make('product_name'),
-                TextInput::make('price')->integer(),
-                TextInput::make('weight')->integer(),
-                TextInput::make('quantity')->integer(),
-                MarkdownEditor::make('description'),
-                
+                TextInput::make('price')
+                    ->integer()
+                    ->rules(['required', 'integer', 'min:1']),
+                TextInput::make('weight')
+                    ->integer()
+                    ->rules(['nullable', 'integer']),
+                TextInput::make('quantity')
+                    ->integer()
+                    ->rules(['required', 'integer', 'min:1']),
+                MarkdownEditor::make('description')->columnSpanFull(),
+
                 Hidden::make('admin_id')
-                ->default(Auth::id()),
+                    ->default(Auth::id()),
 
 
                 FileUpload::make('image_url')
@@ -51,8 +57,8 @@ class ProductResource extends Resource
                     ->maxFiles(4)
                     ->downloadable()
                     ->openable(),
-                    // ->directory('products')
-                    // ->visibility('public'), 
+                // ->directory('products')
+                // ->visibility('public'), 
 
 
                 Select::make('category_id')
@@ -60,9 +66,9 @@ class ProductResource extends Resource
                     ->relationship('category', 'category_name')
                     ->required()
                     ->options(
-                    DB::table('categories')->pluck('category_name', 'id')->toArray()
-                )
-                ->placeholder("Select a category"),
+                        DB::table('categories')->pluck('category_name', 'id')->toArray()
+                    )
+                    ->placeholder("Select a category"),
             ]);
     }
 

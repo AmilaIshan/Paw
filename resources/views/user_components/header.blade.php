@@ -11,7 +11,7 @@
                <a class="" href="{{ route('home') }}"><li >Home</li></a>
                <a class="" href="{{ route('cart') }}"> <li>Cart</li></a>
                 <a class=" href=""><li>Subscription</li></a>
-                <a class=" href=""><li>About Us</li></a>
+                <a class="" href="{{ route('aboutUs') }}"><li>About Us</li></a>
             </ul>
         </div>
         @guest
