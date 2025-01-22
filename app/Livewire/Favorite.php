@@ -24,6 +24,7 @@ class Favorite extends Component
 
     public function toggleLike()
     {
+        dd("+++++++++++++++++++++++++++++++++");
         if (!Auth::check()) {
             return redirect()->route('login');
         }
@@ -45,6 +46,7 @@ class Favorite extends Component
 
     public function checkFavoriteStatus()
     {
+        
         if (Auth::check()) {
             $this->hasLiked = Auth::user()->favoriteProducts()
                 ->where('product_id', $this->productId)

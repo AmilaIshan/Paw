@@ -26,7 +26,7 @@
         </div>
         
         {{-- Category Section --}}
-        <livewire:category />
+        @include('categories.category')
 
         {{-- Recommended Products Section --}}
         <livewire:recommended-products/>

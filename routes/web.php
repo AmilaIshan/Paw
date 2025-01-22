@@ -30,3 +30,9 @@ Route::get('/aboutUs', function() {
     return view('user_layout.aboutUs');
 })->name('aboutUs');
 Route::get('/cart', [CartController::class, 'cartPage'])->name('cart');
+
+Route::get('/testing', function() {
+    return view('categories.newIndex');
+})->name('testing');
+
+Route::get('/category/{id}', [CategoryController::class, 'getProducts'])->name('category.show');

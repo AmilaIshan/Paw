@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -35,10 +36,20 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        $cart = Cart::findOrFail($id);
-        return new CategoryResource($cart);
+        // $cart = Cart::findOrFail($id);
+        // return new CategoryResource($cart);
+        // $category = Category::findOrFail($id);
+        $items = Product::where('category_id', $id)->get();
+        return ProductResource::collection($items);
+        // $category = Category::with('products')->findOrFail($id);
+        // return new CategoryResource($category);
+    }
+
+    public function getProducts($id)
+    {
+        return view('categories.category-products');
     }
 
     public function display($categoryId){

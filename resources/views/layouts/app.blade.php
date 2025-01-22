@@ -4,6 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        @auth
+        <meta name="api-token" content="{{ auth()->user()->createToken('auth-token')->plainTextToken }}">
+        @endauth
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -22,12 +25,12 @@
     <body class="font-sans antialiased min-h-screen flex flex-col">
         <x-banner />
 
-        <div class="flex-grow min-h-screen bg-gray-100 dark:bg-zinc-700">
+        <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-zinc-700">
           
             @include('user_components.header')
             
             <!-- Page Content -->
-            <main class="flex-grow">
+            <main class="flex-1 flex flex-col">
                 {{ $slot }}
             </main>
 
@@ -39,6 +42,9 @@
 
         @stack('modals')
 
+
+        @stack('scripts')
+        
         @livewireScripts
         <script>
             window.addEventListener('removeFromcart', (event) => {
