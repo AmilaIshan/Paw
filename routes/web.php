@@ -36,3 +36,7 @@ Route::get('/testing', function() {
 })->name('testing');
 
 Route::get('/category/{id}', [CategoryController::class, 'getProducts'])->name('category.show');
+
+Route::get('/subscription', function(){
+    return view('subscriptions.subscriptions');  
+})->name('subscription'); 

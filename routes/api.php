@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\SubscriptionPlanController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -34,3 +35,4 @@ Route::middleware('auth:sanctum')->group(function(){
     
 });
 
+Route::apiResource('subscription', SubscriptionPlanController::class);

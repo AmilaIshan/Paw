@@ -1,4 +1,4 @@
-div>
+<div>
     <div class="flex justify-center items-center space-x-20">
         <h1 class="dark:text-white m-10 text-3xl font-semibold">Categories</h1>
     </div>
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function fetchCategories() {
     const container = document.getElementById('categories-container');
     
-    axios.get('http://127.0.0.1:8000/api/category')
+    axios.get('https://pawsfood.shop/api/category')
         .then(response => {
             const categories = response.data.data;
             container.innerHTML = '';
@@ -34,7 +34,7 @@ function fetchCategories() {
                     <a href="/category/${category.id}">
                         <div>
                             <div class="h-[200px] w-[200px] cursor-pointer rounded-full m-2 dark:bg-white bg-yellow-400 overflow-hidden flex justify-center items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-                                <img class="object-contain" src="/storage/${category.image_url}" alt="${category.name}" 
+                                <img class="object-contain" src="https://pawsfood.shop/storage/public/${category.image_url}" alt="${category.name}" 
                                     onerror="this.onerror=null; this.src='/images/placeholder.png';">
                             </div>
                             <p class="text-center dark:text-white">${category.name}</p>

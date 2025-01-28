@@ -17,7 +17,8 @@
             <img  
                 src="{{ asset('images/banner.png') }}" 
                 class="w-full h-full object-cover"
-                alt="">
+                alt=""
+            >
             
             <div class="absolute top-1/2 left-0 transform -translate-y-1/2 text-left pl-10">
                 <h1 class="text-5xl font-bold mb-4 text-white drop-shadow-lg">Welcome to Paws</h1>

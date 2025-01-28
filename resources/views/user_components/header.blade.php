@@ -1,26 +1,32 @@
-<header class="flex bg-white h-20 dark:bg-zinc-800 items-center justify-between py-3 border-b border-gray-200 dark:border-gray-800 font-primary">
+<header class="flex bg-white h-18 dark:bg-zinc-800 items-center justify-between py-2 border-b border-gray-200 dark:border-gray-800 font-primary">
     <div class="ml-10 flex">
         <a href="{{ route('home') }}">
             <p class="text-2xl font-bold ml-11 dark:text-white">Paws</p>
         </a>
-        
-    </div>
-    <div class="flex mr-10">
-        <div class="mr-12 ">
-            <ul class="hidden md:flex space-x-14 dark:text-yellow-500  text-xl capitalize cursor-pointer">
+        <ul class="hidden md:flex space-x-14 dark:text-yellow-500 ml-10 text-base capitalize cursor-pointer items-center mr-4">
                <a class="" href="{{ route('home') }}"><li >Home</li></a>
                <a class="" href="{{ route('cart') }}"> <li>Cart</li></a>
-                <a class=" href=""><li>Subscription</li></a>
+                <a class="" href="{{ route('subscription') }}"><li>Subscription</li></a>
                 <a class="" href="{{ route('aboutUs') }}"><li>About Us</li></a>
             </ul>
-        </div>
+    </div>
+    <div class="flex mr-10">
+        
+            <!-- <ul class="hidden md:flex space-x-14 dark:text-yellow-500 text-base capitalize cursor-pointer items-center mr-4">
+               <a class="" href="{{ route('home') }}"><li >Home</li></a>
+               <a class="" href="{{ route('cart') }}"> <li>Cart</li></a>
+                <a class="" href="{{ route('subscription') }}"><li>Subscription</li></a>
+                <a class="" href="{{ route('aboutUs') }}"><li>About Us</li></a>
+            </ul> -->
+        
+        @livewire('search')
         @guest
-            <div class="flex space-x-4">
-                <a class="flex space-x-2 items-center bg-yellow-300 px-6 rounded-sm hover:text-orange-700 text-sm text-gray-500"
+            <div class="flex space-x-4 items-center justify-center">
+                <a class="flex space-x-2 items-center bg-yellow-300 px-4 h-8 rounded-sm hover:text-orange-700 text-sm text-gray-500"
                 href="http://127.0.0.1:8000/login">
                 Login
                 </a>
-                <a class="flex space-x-2 items-center bg-yellow-300 px-6 rounded-sm hover:text-orange-700 text-sm text-gray-500"
+                <a class="flex space-x-2 items-center bg-yellow-300 px-4 h-8 rounded-sm hover:text-orange-700 text-sm text-gray-500"
                     href="http://127.0.0.1:8000/register">
                     Register
                 </a>
