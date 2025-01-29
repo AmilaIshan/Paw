@@ -126,7 +126,7 @@ async function addToCart(productId, price) {
                 'Accept': 'application/json',
                 Authorization: `Bearer ${document.querySelector('meta[name="api-token"]').content}`, 
             },
-            withCredentials: true  // Important for handling cookies/session
+            withCredentials: true  
         });
 
         const event = new CustomEvent('add-to-cart', {
@@ -158,11 +158,11 @@ async function toggleFavorite(productId, button) {
         return;
     }
 
-    // Get the heart icon and loading spinner
+    
     const heartIcon = button.querySelector('.heart-icon');
     const loadingSpinner = button.querySelector('.loading-spinner');
     
-    // Show loading state
+    
     heartIcon.classList.add('hidden');
     loadingSpinner.classList.remove('hidden');
     

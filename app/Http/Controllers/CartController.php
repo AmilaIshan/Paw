@@ -17,7 +17,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cart = Cart::with('product', 'user')->paginate(5);
+        $cart = Cart::with('product')
+                ->where('user_id', auth()->id())
+                ->get();
         return CartResource::collection($cart);
     }
 
@@ -60,32 +62,40 @@ class CartController extends Controller
     {
 
         // Get authenticated user's cart items with product details
-        $cartItems = Cart::with('product')
-            ->where('user_id', Auth::id())
-            ->get();
+        // $cartItems = Cart::with('product')
+        //     ->where('user_id', Auth::id())
+        //     ->get();
 
         // Calculate total cost
-        $totalCost = $cartItems->sum(function ($item) {
-            return $item->price * $item->quantity;
-        });
+        // $totalCost = $cartItems->sum(function ($item) {
+        //     return $item->price * $item->quantity;
+        // });
+        $token = null;
+        if (auth()->check()) {
+            $token = auth()->user()->createToken('cart-access')->plainTextToken;
+        }
 
-        return view('cart.index', compact('cartItems', 'totalCost'));
+        return view('cart.index', ['token' => $token]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $productId)
     {
-        $validated = $request->validate([
-            'price' => 'integer',
-            'quantity' => 'integer',
-            'product_id' => 'integer',
-            'user_id' => 'integer'
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
         ]);
-
-        $cart = Cart::findOrFail($id);
-        $cart->update($validated);
+    
+        $cart = Cart::where('product_id', $productId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+    
+        $cart->update([
+            'quantity' => $request->quantity
+        ]);
+    
+        return response()->json(['message' => 'Cart updated successfully']);
     }
 
     /**

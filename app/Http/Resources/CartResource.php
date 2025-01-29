@@ -20,7 +20,10 @@ class CartResource extends JsonResource
             'id' => $this->id,
             'price' => $this->price,
             'quantity' => $this->quantity,
-            'products' => $this->product->product_name
+            'product_name' => $this->product->product_name,
+            'stock_quantity' => $this->product->quantity,
+            'image_url' => $this->product->image_url[0],
+            'product_id' => $this->product_id
         ];
     }
 }

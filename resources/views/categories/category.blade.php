@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function fetchCategories() {
     const container = document.getElementById('categories-container');
     
-    axios.get('https://pawsfood.shop/api/category')
+    axios.get('https://pawsfood.shop/api/category') 
         .then(response => {
             const categories = response.data.data;
             container.innerHTML = '';
