@@ -15,7 +15,6 @@ class Transaction extends Model
         'user_id',
         'quantity',
         'price',
-        'created_date',
     ];
 
     public function user(){

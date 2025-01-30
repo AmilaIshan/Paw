@@ -8,7 +8,7 @@
         <meta name="api-token" content="{{ auth()->user()->createToken('auth-token')->plainTextToken }}">
         @endauth
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Paws</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

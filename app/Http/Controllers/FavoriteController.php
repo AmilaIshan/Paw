@@ -15,7 +15,7 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $favorite = Favorite::all();
+        $favorite = Favorite::where('user_id', auth()->id());
         return FavoriteResource::collection($favorite);
     }
 

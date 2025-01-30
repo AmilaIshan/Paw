@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return view('user_layout.home');
@@ -25,11 +26,14 @@ Route::middleware([
 
 Route::get('/categories/{category}', [CategoryController::class, 'display'])->name('categorized');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-
+Route::get('/favorite', function(){
+    return view('favorite.favorite');
+});
 Route::get('/aboutUs', function() {
     return view('user_layout.aboutUs');
 })->name('aboutUs');
 Route::get('/cart', [CartController::class, 'cartPage'])->name('cart');
+Route::get('/checkout', [TransactionController::class, 'checkoutPage'])->name('checkout');
 
 Route::get('/testing', function() {
     return view('categories.newIndex');

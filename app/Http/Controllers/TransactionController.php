@@ -6,6 +6,7 @@ use App\Http\Resources\TransactionResource;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -23,20 +24,22 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        
         $validated = $request->validate([
             'price' => 'required|integer',
             'quantity' => 'required|integer',
-            'product_id' => 'required|integer',
-            'user_id' => 'required|integer'
+            'product_id' => 'required|integer'
         ]);
+
+        $validated['user_id'] = Auth::id();
 
         $product = Product::findOrFail($validated['product_id']);
         
-        $transaction = Product::create([
+        $transaction = Transaction::create([
             'product_id' => $validated['product_id'],
             'user_id' => $validated['user_id'],
             'quantity' => $validated['quantity'],
-            'price' => $product->price,
+            'price' => $validated['price'],
         ]);
 
         $transaction->save();
@@ -67,6 +70,15 @@ class TransactionController extends Controller
 
         $transaction = Transaction::findOrFail($id);
         $transaction->update($validated);
+    }
+
+    public function checkoutPage(){
+        $token = null;
+        if(auth()->check()){
+            $token = auth()->user()->createToken('checkoutToken')->plainTextToken;
+
+        }
+        return view('checkout.checkout',['token' => $token]);
     }
 
     /**
