@@ -1,12 +1,97 @@
 <x-app-layout>
-    <div class="lg:grid lg:grid-cols-2 mx-auto max-w-[1200px] h-[600px] bg-white rounded-lg shadow-lg p-6 m-10" id="container">
+    <div class=" mx-auto max-w-[1200px] min-h-[600px] bg-white rounded-lg shadow-lg p-6 m-10">
+        <div class="lg:grid lg:grid-cols-2" id="container"></div>
+        <div class="m-4">
+           <h2 class="text-2xl p-2">Comments & Reviews</h2>
+           <hr>
 
+            <div id="comment-form-container">
+                <textarea id="comment-text" class="w-full p-2 border rounded" placeholder="Write your comment..." rows="4"></textarea>
+                <button id="submit-comment" class="mt-2 bg-yellow-400 text-black dark:text-white p-2 rounded">Submit Comment</button>
+            </div>
+
+           <div id="comments-section" class="mb-8">
+
+           </div>
+        </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     fetchProduct();
+    fetchComments();
+
+    const submitButton = document.getElementById('submit-comment');
+    if (submitButton) {
+        submitButton.addEventListener('click', submitComment);
+    }
 });
+
+async function fetchComments() {
+    const commentsContainer = document.getElementById('comments-section');
+    
+    axios.get(`http://127.0.0.1:8000/api/comments/{{ $productId }}`)
+        .then(response => {
+            const comments = response.data;
+            commentsContainer.innerHTML = ''; // Clear existing comments
+
+            comments.forEach(comment => {
+                const commentHTML = `
+                    <div class="mb-4 m-2 border-gray-200 bg-white rounded shadow">
+                        <h4 class="p-2 text-lg"> ${comment.user_name}</h4>
+                        <p class="p-2">${comment.comment}</p>
+                    </div>
+                `;
+                commentsContainer.innerHTML += commentHTML;
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching comments:', error);
+            commentsContainer.innerHTML = `<p class="text-red-500">Failed to load comments. Please try again later.</p>`;
+        });
+}
+
+async function submitComment() {
+    const commentText = document.getElementById('comment-text').value;
+    if (!commentText.trim()) {
+        alert('Please write a comment before submitting.');
+        return;
+    }
+
+    const isAuthenticated = {{ auth()->check() ? 'true' : 'false' }};
+    if (!isAuthenticated) {
+        window.location.href = '/login';
+        return;
+    }
+
+    const userId = {{ auth()->id() }};
+    const userName = "{{ auth()->user()->name }}";
+    const productId = {{ $productId }};
+    
+    try {
+        // Post the comment to the API
+        const response = await axios.post(`http://127.0.0.1:8000/api/comments`, {
+            user_id: userId,
+            user_name: userName,
+            product_id: productId,
+            comment: commentText
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Authorization': `Bearer ${document.querySelector('meta[name="api-token"]').content}`
+            }
+        });
+
+        // Clear the comment input and refresh the comments
+        document.getElementById('comment-text').value = '';
+        fetchComments(); // Reload the comments section with the new comment
+    } catch (error) {
+        console.error('Error submitting comment:', error);
+        alert('There was an error submitting your comment. Please try again later.');
+    }
+}
 
 async function fetchProduct() {
     const container = document.getElementById('container');

@@ -10,7 +10,7 @@ class Comment extends Model
     protected $collection = 'comments';
 
     protected $fillable = [
-        'post_id',
+        'user_name',
         'user_id',
         'comment',
         'product_id'
