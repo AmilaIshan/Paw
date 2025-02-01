@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\SubscriptionPlanController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -36,3 +37,6 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 
 Route::apiResource('subscription', SubscriptionPlanController::class);
+
+Route::get('/comments/{product_id}', [CommentController::class, 'index']);
+Route::post('/comments', [CommentController::class, 'store']);

@@ -63,7 +63,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        return new ProductResource($product);
     }
 
     public function display($categoryId){

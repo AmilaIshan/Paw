@@ -25,7 +25,12 @@ Route::middleware([
 // })->name('home');
 
 Route::get('/categories/{category}', [CategoryController::class, 'display'])->name('categorized');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}', function($product) {
+    return view('products.product-details', ['productId' => $product]);
+});
+Route::get('/checkout/{product}', function($product) {
+    return view('checkout.single-product', ['productId' => $product]);
+});
 Route::get('/favorite', function(){
     return view('favorite.favorite');
 });
