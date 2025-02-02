@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 
 class Subscription extends Model
 {
@@ -11,8 +13,6 @@ class Subscription extends Model
     protected $fillable = [
         'user_id',
         'plan_id',
-        'start_date',
-        'end_date',
     ];
 
     protected $casts = [

@@ -31,6 +31,9 @@ Route::get('/products/{product}', function($product) {
 Route::get('/checkout/{product}', function($product) {
     return view('checkout.single-product', ['productId' => $product]);
 });
+Route::get('/subscribe/{plan}', function($planId) {
+    return view('checkout.subscribe', ['planId' => $planId]);
+});
 Route::get('/favorite', function(){
     return view('favorite.favorite');
 });

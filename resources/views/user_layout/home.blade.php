@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @auth
+    <meta name="api-token" content="{{ auth()->user()->createToken('auth-token')->plainTextToken }}">
+    @endauth
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
     <title>Paws</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite('resources/css/app.css')
@@ -30,8 +35,8 @@
         @include('categories.category')
 
         {{-- Recommended Products Section --}}
-        <livewire:recommended-products/>
-
+        
+        @include('products.recommended-products')
 
         <h3 class="text-center mt-10 font-bold text-[32px] ">Why Choose Us?</h3>
         <hr> 

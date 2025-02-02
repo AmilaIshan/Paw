@@ -222,8 +222,8 @@
         showCancelButton: true,
         confirmButtonText: 'Remove',
         cancelButtonText: 'Cancel',
-        confirmButtonColor: '#ffd022',
-        cancelButtonColor: '#aaa',
+        confirmButtonColor: '#f86060',
+        cancelButtonColor: '#74e462',
     }).then((result) => {
         if (result.isConfirmed) {
             // Proceed with item removal
@@ -237,6 +237,7 @@
                 console.log('Item removed');
                 Swal.fire({
                     icon: 'success',
+                    iconColor: '#35ff11',
                     title: 'Removed!',
                     text: 'The item has been removed from your cart.',
                     confirmButtonColor: '#ffd022',

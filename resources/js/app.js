@@ -17,23 +17,6 @@ window.addEventListener('guest', (event) => {
     });
 });
 
-// window.addEventListener('removeFromcart', (event) => {
-//     let data = event.detail;
-//     console.log(data);
-//     Swal.fire({
-//         icon: data.title,
-//         iconColor: '#ff2424',
-//         title: data.message,
-//         showCancelButton: true,
-//         confirmButtonText: "Remove",
-//         confirmButtonColor: '#ffd022',
-//       }).then((result) => {
-//           if (result.isConfirmed) {
-//             // Livewire.dispatch('remove-from-cart');
-//             Livewire.emit('remove-from-cart', { itemId: data.itemId });
-//           }
-//       });
-// });
 
 window.addEventListener('add-to-cart', (event) => {
 
@@ -54,6 +37,25 @@ window.addEventListener('add-to-cart', (event) => {
       });
 });
 
+window.addEventListener('order-success', (event) => {
+
+  let data = event.detail;
+
+  Swal.fire({
+      position: 'top-end',
+      icon: data.title,
+      iconColor: '#35ff11',
+      title: data.message,
+      showConfirmButton: false,
+      toast: 'top-end',
+      timer: 3500
+    }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '/cart';
+        }
+    });
+});
+
 window.addEventListener('remove-from-cart', (event) => {
 
     Swal.fire({
@@ -66,3 +68,16 @@ window.addEventListener('remove-from-cart', (event) => {
         timer: 3500
       });
 });
+
+const sunIcon = document.getElementById('sun');
+const moonIcon = document.getElementById('moon');
+const switchBtn = document.getElementById('themeBtn');
+const userTheme = localStorage.getItem("theme");
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+switchBtn.addEventListener('click', () => {
+  sunIcon.classList.toggle('hidden');
+  moonIcon.classList.toggle('hidden');
+  console.log('button clicked');
+});
+

@@ -14,9 +14,10 @@
     function fetchPlans() {
     const container = document.getElementById('plans-container');
     
-    axios.get('http://127.0.0.1:8000/api/subscription')
+    axios.get('http://127.0.0.1:8000/api/subscriptionplan')
         .then(response => {
             const plans = response.data.data;
+            console.log(plans);
             container.innerHTML = '';
             
             if (plans.length === 0) {
@@ -25,6 +26,11 @@
             }
             
             plans.forEach(plan =>{
+                const buttonText = plan.is_subscribed ? 'Unsubscribe' : 'Subscribe';
+                const buttonClass = plan.is_subscribed ? 
+                    'mt-2 mb-2 w-full bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors' :
+                    'mt-2 mb-2 w-full bg-yellow-400 text-white px-6 py-2 rounded-lg hover:bg-green-400 transition-colors';
+                const buttonUrl = plan.is_subscribed ? `/unsubscribe/${plan.id}` : `/subscribe/${plan.id}`;
                 const planElement = `
                     <div class="bg-white cursor-pointer shadow-lg rounded-lg overflow-hidden p-4 w-80">
                     <div class="flex justify-center items-center relative">
@@ -38,11 +44,10 @@
                             <h3 class="text-2xl font-semibold">${plan.name}</h3>
                             <p class="text-gray-600 text-lg">Rs. ${plan.price}</p>
                         </div>
-                    </a>   
-                    <button 
-                            class="mt-2 mb-2 w-full bg-yellow-400 text-white px-6 py-2 rounded-lg hover:bg-green-400 transition-colors">
-                            Subscribe
-                    </button>
+                    </a> 
+                    <a href="${buttonUrl}" class="${buttonClass}">
+                        ${buttonText}
+                    </a>
                 </div>
             `;
             container.insertAdjacentHTML('beforeend', planElement);

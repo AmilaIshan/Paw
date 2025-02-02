@@ -90,21 +90,25 @@
             costContainer.innerHTML = `Rs. ${updatedTotal}`;
         }
 
-        function createTransaction(item, token) {
-            console.log('hekki wirkd');
-            console.log(item);
-            console.log('hekki wirkd');
-            return axios.post('http://127.0.0.1:8000/api/transaction', {
-                price: item.price,
-                quantity: item.quantity,
-                product_id: item.product_id,
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            });
+        async function createTransaction(item, token) {
+            try{
+                const response = await axios.post('http://127.0.0.1:8000/api/transaction', {
+                    price: item.price,
+                    quantity: item.quantity,
+                    product_id: item.product_id,
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+            }catch (error) {
+                console.log(`Bearer ${document.querySelector('meta[name="api-token"]').content}`);
+                console.error('Error adding product to orders:', error);
+
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -145,9 +149,19 @@
                     })
                 );
                 
-                await Promise.all(deletePromises);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    iconColor: '#35ff11',
+                    title: 'Order was successful',
+                    showConfirmButton: false,
+                    timer: 3500
+                }).then(() => {
+                    window.location.href = '/';
+                });
 
                 fetchCartItems();
+                
                 
             } catch (error) {
                 console.error('Error processing purchase:', error);

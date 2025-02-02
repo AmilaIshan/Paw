@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Livewire;
-use App\Models\User;
+use App\Models\Product;
 use Livewire\Component;
 
 class Search extends Component
@@ -15,11 +15,11 @@ class Search extends Component
         $searchResults = [];
 
         if(strlen($this->search) >= 2){
-            $searchResults = User::where('name', 'like', '%'.$this->search.'%')->limit(7)->get();
+            $searchResults = Product::where('product_name', 'like', '%'.$this->search.'%')->limit(7)->get();
         }
 
         return view('livewire.search',[
-            'users' => $searchResults
+            'products' => $searchResults
         ]);
     }
 }

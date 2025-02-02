@@ -31,15 +31,14 @@ class CartController extends Controller
         $validated = $request->validate([
             'price' => 'required|integer',
             'quantity' => 'required|integer',
-            'product_id' => 'required|integer',
-            'user_id' => 'required|integer'
+            'product_id' => 'required|integer'
         ]);
 
         $product = Product::findOrFail($validated['product_id']);
 
         $cart = Cart::create([
             'product_id' => $validated['product_id'],
-            'user_id' => $validated['user_id'],
+            'user_id' => auth()->id(),
             'quantity' => $validated['quantity'],
             'price' => $product->price,
         ]);

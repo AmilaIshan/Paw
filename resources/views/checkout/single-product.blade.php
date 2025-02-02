@@ -25,10 +25,17 @@
         document.querySelector('.buyBtn').addEventListener('click', async function() {
 
             try {
-                console.log(product);
                 const response = await createTransaction(product);
-                console.log('Transaction Success:', response.data);
-                alert('Transaction Successful!');
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    iconColor: '#35ff11',
+                    title: 'Order was successful',
+                    showConfirmButton: false,
+                    timer: 3500
+                }).then(() => {
+                    window.location.href = '/';
+                });
             } catch (error) {
                 console.error('Transaction Failed:', error);
                 alert('Transaction Failed! Check console for details.');

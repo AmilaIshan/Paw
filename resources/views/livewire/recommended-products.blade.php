@@ -14,8 +14,6 @@
                         <div class="p-4">
                         <h3 class="text-lg font-semibold">{{ $product->product_name }}</h3>
                         <p class="text-gray-600 text-lg">Rs. {{ $product->price }}</p>
-                        <p class="text-gray-700 mt-2 mb-2">Brief description of the product...Brief description of the product...Brief description of the product...</p>
-                        
                     </a>    
                     {{-- <button class="mt-4 w-full bg-yellow-400 text-white px-4 py-2 rounded-lg">Add to Cart</button> --}}
                     

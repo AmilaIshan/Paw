@@ -35,12 +35,10 @@ class SubscriptionPlanResource extends Resource
                 TextInput::make('price')
                     ->label('Price')
                     ->required(),
-                TextInput::make('duration')
-                    ->label('Duration')
-                    ->required(),
                 Textarea::make('description')
                     ->label('Description')
-                    ->nullable(),
+                    ->nullable()
+                    ->columnSpanFull(),
                 FileUpload::make('image_url')
             ]);
     }
@@ -51,8 +49,6 @@ class SubscriptionPlanResource extends Resource
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('price'),
-                TextColumn::make('duration'),
-                TextColumn::make('description'),
                 ImageColumn::make('image_url'),
             ])
             ->filters([

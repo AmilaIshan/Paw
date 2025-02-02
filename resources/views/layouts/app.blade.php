@@ -7,7 +7,7 @@
         @auth
         <meta name="api-token" content="{{ auth()->user()->createToken('auth-token')->plainTextToken }}">
         @endauth
-
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
         <title>Paws</title>
 
         <!-- Fonts -->
